@@ -3,9 +3,10 @@ import os
 import psycopg2
 from psycopg2.extensions import AsIs
 
+filePath = '/Users/syanima/practices/CsvFileLoader/csv-loader-python/mytable.csv'
+
 
 def findTableName():
-    filePath = '/Users/syanima/practices/csv-loader-python/test12.csv'
     file = os.path.basename(filePath)
     table = os.path.splitext(file)[0]
     return table
@@ -23,7 +24,7 @@ cur = conn.cursor()
 try:
 
     cur.execute("Create table  %(table)s (content varchar,content2 varchar,content3 varchar);",{"table": AsIs(tableName)})
-    f = open('/Users/syanima/practices/csv-loader-python/test12.csv', 'r')
+    f = open(filePath, 'r')
     cur.copy_from(f,tableName,sep=',')
     f.close()
     conn.commit()
