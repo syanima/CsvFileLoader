@@ -3,7 +3,7 @@ import os
 import psycopg2
 from psycopg2.extensions import AsIs
 
-filePath = '/Users/syanima/practices/CsvFileLoader/csv-loader-python/mytable.csv'
+filePath = './mytable100.csv'
 
 
 def findTableName():
@@ -25,6 +25,7 @@ try:
 
     cur.execute("Create table  %(table)s (content varchar,content2 varchar,content3 varchar);",{"table": AsIs(tableName)})
     f = open(filePath, 'r')
+    print f
     cur.copy_from(f,tableName,sep=',')
     f.close()
     conn.commit()
